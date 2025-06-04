@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peliculas API</title>
+</head>
+<body>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color:#FF8C00;
+            --secondary-color: #1E90FF ;
+            --terceary-color: #32CD32 ;
+             --cuarto-color:#FF4500 ;
+            --quinto-color:#FFD700 ;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--primary-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+        header {
+            padding: 15px;
+            display: flex;
+            justify-content: flex-end;
+            background-color: var(--cuarto-color);
+        }
+        .search {
+            background-color: rgb(rgba(1, 121, 115, 0.713));
+            border: 5px solid var(--terceary-color);
+            border-radius: 50px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 15px;
+            padding: 8px 15px;
+            color: rgb(0, 0, 0);
+        }
+        .search::placeholder {
+            color: var(--terceary-color);
+        }
+        .search:focus {
+            outline: none;
+            background-color: var(--primary-color);
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .personaje {
+            width: 400px;
+            margin: 15px;
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 5px var(--terceary-color);
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .personaje img {
+            width: 80%;
+            height: 400px;
+            object-fit: contain;
+        }
+        .personaje-info{
+            color: var(--terceary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            padding: 0.8px 15px 15px;
+            letter-spacing: 0.5px;
+        }
+        .personaje-info h3{
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+          
+        .personaje-info h1{
+            color: var(--terceary-color);
+            margin-top: 0;
+        }
+
+        .overview{
+            background-color: var(--secondary-color);
+            padding: 15px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        max-height: 100%;
+        transform: translateY(101%);
+        overflow-y: auto;
+        transition: transform 2s ease-in;
+
+        }
+
+        .personaje:hover .overview {
+            transform: translateY(0);
+        }
+    </style>
+
+
+<header>
+    <img src="dbz.jpg" alt="logo" style="width: auto" height="50px">
+    <form id="form">
+        <input type="text" id="search" class="search" placeholder="Busca tu pelicula">
+    </form>
+</header>
+
+    <main id="main"></main>
+    
+    <script>
+        const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1';
+        const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+        const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="';
+
+        const main = document.getElementById('main');
+        const form = document.getElementById('form');
+        const search = document.getElementById('search');
+
+        getCharacters(API_URL)
+
+        async function getCharacters(url){
+            const res = await fetch(url);
+            const data = await res.json();
+            showCharacters(data.results);
+        }
+        function showCharacters(characters){
+            main.innerHTML = '';
+
+            characters.forEach((char) => {
+                // Esta linea va a poner todos los elementos a principio , para eso el
+                //forEach es smimilar al "for", pero el for tiene su inclinacion,  condicion y limitante
+                const {id, name, image,iki, maxKi,race,gender, description} = char;
+                //esta linea pone lo que nos va a interesar del API que vamos a obtener
+                const charElement = document.createElement('div');
+                charElement.classList.add('personaje');
+                charElement.innerHTML = `
+                <img src = "${image}" alt="${image}">
+                <div class="personaje-info">
+                    <h1>${id}</h1>
+                    <h3>${name}</h3>
+                    <br>
+                    ${race}
+                        </div>
+                        <div class = "overview">
+                            <h3>Descripcion</h3>
+                            <p><strong>ki:</strong>${ki}</p>
+                            <p><strong>Max ki: </strong>${ki}</p>
+                            ${description}
+                        </div>`
+                        
+                    main.appendChild(char);
+            })}
+         
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault()
+                    const searchTerm = search.value;
+                    if(searchTerm && searchTerm !== ''){
+                        getMovies(SEARCH_API + searchTerm)
+                        search.value='';
+                    }else{window.location.reload();}
+
+                })
+    </script>
+
+</body>
+</html>
