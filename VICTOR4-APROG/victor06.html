@@ -4,7 +4,48 @@
   <meta charset="UTF-8">
   <title>DOCUMENT</title>
       
-<nav class="navbar navbar-light" style="background-color: #28E500 ;">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+        
+    body {
+      background-image: url(pokedex.jpg);
+      color: rgb(2, 2, 2);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    button {
+      width: 100px;
+      height: 100px;
+      background-color: transparent;
+      border: 2px solid black;
+      border-radius: 50%;
+      position: absolute;
+      top: 25px;
+      left: 340px;
+    }
+    .placeholder {
+      width: 200px;
+      height: 50px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 25px;
+      position: absolute;
+      top: 25px;
+      left: 0px;
+    }
+    .pokeImg {
+      position: absolute;
+      top: 25px;
+      left: 340px;
+    }
+    .pokeData {
+      position: absolute;
+      left: 500px;
+      font-size: 20px;
+
+    }
+  </style>
+</head>
+  <nav class="navbar navbar-light" style="background-color: #28E500 ;">
   <div class="contener">
     <a class="navbar-brand" href="" style="color: rgb(255, 255, 255);">Inicio</a>
     <!-- Un boton de inicio que lleva a si mismo, de color blanco, aqui pueden poner el color que quieran dependiendo de su estilo -->
@@ -53,47 +94,6 @@
      </div>
    </div>
   </nav>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-        
-    body {
-      background-image: url(pokedex.jpg);
-      color: rgb(2, 2, 2);
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-    button {
-      width: 100px;
-      height: 100px;
-      background-color: transparent;
-      border: 2px solid black;
-      border-radius: 50%;
-      position: absolute;
-      top: 25px;
-      left: 340px;
-    }
-    .placeholder {
-      width: 200px;
-      height: 50px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 25px;
-      position: absolute;
-      top: 25px;
-      left: 0px;
-    }
-    .pokeImg {
-      position: absolute;
-      top: 25px;
-      left: 340px;
-    }
-    .pokeData {
-      position: absolute;
-      left: 500px;
-      font-size: 20px;
-
-    }
-  </style>
-</head>
 <body>
   <input type="text" placeholder="pikachu" id="pokemonInput" class="placeholder">
   <img src="pokeball.jpg" alt="pokemon" id="pokeImg" width="100px" class="pokeImg">
